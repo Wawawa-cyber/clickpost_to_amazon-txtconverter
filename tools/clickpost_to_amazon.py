@@ -37,10 +37,7 @@ def merge_settings(mapping_cfg: Dict[str, Any], tool_cfg: Dict[str, Any]) -> Dic
     combined["encoding"] = first(mapping_cfg.get("encoding"), tool_cfg.get("encoding"), "auto")
     combined["input_date_format"] = first(mapping_cfg.get("input_date_format"), tool_cfg.get("input_date_format"), "yyyyMMdd")
     combined["output_date_format"] = first(mapping_cfg.get("output_date_format"), tool_cfg.get("output_date_format"), "yyyy-MM-dd")
-    combined["sheet"] = first(mapping_cfg.get("sheet"), tool_cfg.get("sheet"))
-    combined["header_row_index"] = first(mapping_cfg.get("header_row_index"), tool_cfg.get("header_row_index"))
-    combined["start_data_row_index"] = first(mapping_cfg.get("start_data_row_index"), tool_cfg.get("start_data_row_index"))
-    combined["header_search_rows"] = first(mapping_cfg.get("header_search_rows"), tool_cfg.get("header_search_rows"), 20)
+    # Only keep fields used by current CSV->TXT flow
 
     # Accept either top-level mappings or nested under "mappings"
     mappings = mapping_cfg.get("mappings")
@@ -121,22 +118,7 @@ def read_input_csv(path: Path, encoding: str) -> List[Dict[str, Any]]:
             raise e
 
 
-def find_header_row(ws, expected_key: str, search_rows: int) -> Optional[int]:
-    for r in range(1, search_rows + 1):
-        for c in range(1, ws.max_column + 1):
-            val = ws.cell(row=r, column=c).value
-            if isinstance(val, str) and val.strip() == expected_key:
-                return r
-    return None
-
-
-def build_template_col_index(ws, header_row_idx: int) -> Dict[str, int]:
-    out: Dict[str, int] = {}
-    for c in range(1, ws.max_column + 1):
-        key = ws.cell(row=header_row_idx, column=c).value
-        if isinstance(key, str) and key.strip():
-            out[key.strip()] = c
-    return out
+## Removed legacy Excel helpers (find_header_row, build_template_col_index)
 
 
 def transform_row(src_row: Dict[str, str], mapcfg: Dict[str, Any]) -> Dict[str, Any]:
@@ -199,43 +181,10 @@ def transform_row(src_row: Dict[str, str], mapcfg: Dict[str, Any]) -> Dict[str, 
     return out
 
 
-def write_to_template(template_path: Path, output_path: Path, records: List[Dict[str, Any]], mapcfg: Dict[str, Any]) -> None:
-    from openpyxl import load_workbook
-
-    wb = load_workbook(template_path)
-    ws = wb[mapcfg["sheet"]] if mapcfg.get("sheet") else wb.active
-
-    header_row_idx: Optional[int] = mapcfg.get("header_row_index")
-    if not header_row_idx:
-        header_row_idx = find_header_row(ws, "order-id", mapcfg.get("header_search_rows", 20))
-        if not header_row_idx:
-            raise RuntimeError("Could not locate header row containing 'order-id'. Specify header_row_index in config/mapping.")
-
-    template_cols = build_template_col_index(ws, header_row_idx)
-    missing_cols = [k for k in mapcfg["mappings"].keys() if k not in template_cols]
-    if missing_cols:
-        raise RuntimeError("Template is missing required columns: " + ", ".join(missing_cols))
-
-    start_row = mapcfg.get("start_data_row_index", header_row_idx + 1)
-    row_idx = start_row
-    for rec in records:
-        transformed = transform_row(rec, mapcfg)
-        for col_name, value in transformed.items():
-            col = template_cols[col_name]
-            ws.cell(row=row_idx, column=col, value=value)
-        row_idx += 1
-
-    if output_path.resolve() == template_path.resolve():
-        raise RuntimeError("Refusing to overwrite template. Use a different output path.")
-    wb.save(output_path)
+## Removed legacy Excel write_to_template (XLSX path deprecated)
 
 
-def to_rows_in_order(records: List[Dict[str, Any]], columns: List[str]) -> List[List[Any]]:
-    out: List[List[Any]] = []
-    out.append(columns)
-    for rec in records:
-        out.append([rec.get(col, "") for col in columns])
-    return out
+## Removed unused helper to_rows_in_order
 
 
 def write_csv_utf8(path: Path, rows: List[List[Any]], delimiter: str = ",") -> None:
@@ -266,18 +215,7 @@ def write_amazon_format_txt(path: Path, rows: List[List[Any]]) -> None:
         f.write("\r\n")
 
 
-def write_tab_separated_txt_with_spacing(path: Path, rows: List[List[Any]]) -> None:
-    """Write tab-separated text file with 14 line breaks between each data row"""
-    with path.open("w", encoding="utf-8", newline="") as f:
-        for i, row in enumerate(rows):
-            # Convert all values to string and join with tabs
-            line = "\t".join(str(cell) for cell in row)
-            f.write(line + "\n")
-            
-            # Add 14 empty lines between rows (except for the last row)
-            if i < len(rows) - 1:
-                for _ in range(14):
-                    f.write("\n")
+## Removed unused spacing variant writer
 
 
 def main():
@@ -304,12 +242,10 @@ def main():
         # Load configs
         default_tool_cfg: Dict[str, Any] = {
             "output": {
-                "write_xlsx": False,
                 "write_csv": False,
                 "write_txt": True,
                 "csv_name": "shipping_confirmation.csv",
                 "txt_name": "shipping_confirmation.txt",
-                "xlsx_name": "AmazonShippingConfirmation_output.xlsx",
             },
             "io": {
                 "encoding": "auto",
@@ -440,9 +376,7 @@ def main():
             csv_file_path = OUTPUT_DIR / timestamped_name
             write_csv_utf8(csv_file_path, matrix, ",")
 
-        # XLSX output deprecated (Excel template not used anymore)
-        if merged_tool_cfg.get("output", {}).get("write_xlsx", False):
-            print("[warn] write_xlsx is no longer supported because Excel template is not used. Skipped.")
+        # XLSX path removed (template flow deprecated)
 
         print("Done. Outputs in:", OUTPUT_DIR)
         
