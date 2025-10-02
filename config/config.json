@@ -4,7 +4,7 @@
     "columns_path": "config/template_columns.json"
   },
   "format": {
-    "input_date_format": "yyyy/MM/dd",
+    "input_date_format": "yyyy-MM-dd",
     "output_date_format": "yyyy-MM-dd"
   },
   "output": {
