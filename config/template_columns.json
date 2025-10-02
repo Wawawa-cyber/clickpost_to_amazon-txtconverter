@@ -1,0 +1,51 @@
+{
+  "header_rows": [
+    [
+      "TemplateType=OrderFulfillment",
+      "Version=2011.1102",
+      "この行はAmazonが使用しますので変更・削除しないでください。"
+    ],
+    [
+      "注文番号",
+      "注文商品番号",
+      "出荷数",
+      "出荷日",
+      "配送業者コード",
+      "配送業者名",
+      "お問合わせ伝票番号",
+      "配送方法",
+      "代金引換",
+      "製品の透過性コード",
+      "出荷元住所-名称",
+      "出荷元住所-行1",
+      "出荷元住所-行2",
+      "出荷元住所-行3",
+      "出荷元住所-市区町村",
+      "出荷元住所-郡",
+      "出荷元住所-州/省",
+      "出荷元住所-郵便番号",
+      "出荷元住所-国コード"
+    ]
+  ],
+  "columns": [
+    "order-id",
+    "order-item-id",
+    "quantity",
+    "ship-date",
+    "carrier-code",
+    "carrier-name",
+    "tracking-number",
+    "ship-method",
+    "cod-collection-method",
+    "transparency_code",
+    "ship_from_address_name",
+    "ship_from_address_line1",
+    "ship_from_address_line2",
+    "ship_from_address_line3",
+    "ship_from_address_city",
+    "ship_from_address_county",
+    "ship_from_address_state_or_region",
+    "ship_from_address_postalcode",
+    "ship_from_address_countrycode"
+  ]
+}

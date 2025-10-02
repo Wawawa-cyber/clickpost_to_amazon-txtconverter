@@ -1,0 +1,70 @@
+{
+  "mappings": {
+    "order-id": {
+      "source": "GoQ管理番号",
+      "index": 0,
+      "extract": "paren_inner"
+    },
+    "order-item-id": {
+      "source": "GoQ管理番号",
+      "index": 0,
+      "extract": "paren_before"
+    },
+    "quantity": {
+      "source": "商品名",
+      "index": 4,
+      "extract": "after_multiply"
+    },
+    "ship-date": {
+      "source": "出荷日",
+      "index": 2,
+      "parse_date": true
+    },
+    "tracking-number": {
+      "source": "お問い合わせ番号",
+      "index": 1
+    },
+    "ship-method": {
+      "value": "クリックポスト"
+    },
+    "carrier-code": {
+      "value": "Japan Post"
+    },
+    "carrier-name": {
+      "value": "日本郵便"
+    },
+    "cod-collection-method": {
+      "value": ""
+    },
+    "transparency_code": {
+      "value": ""
+    },
+    "ship_from_address_name": {
+      "value": ""
+    },
+    "ship_from_address_line1": {
+      "value": ""
+    },
+    "ship_from_address_line2": {
+      "value": ""
+    },
+    "ship_from_address_line3": {
+      "value": ""
+    },
+    "ship_from_address_city": {
+      "value": ""
+    },
+    "ship_from_address_county": {
+      "value": ""
+    },
+    "ship_from_address_state_or_region": {
+      "value": ""
+    },
+    "ship_from_address_postalcode": {
+      "value": ""
+    },
+    "ship_from_address_countrycode": {
+      "value": ""
+    }
+  }
+}

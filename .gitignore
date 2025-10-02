@@ -1,0 +1,15 @@
+# Ignore sample assets
+/sample/
+
+# Ignore input/output working files but keep folder placeholders
+input/*
+!input/.gitkeep
+output/*
+!output/.gitkeep
+
+# Bytecode / env (optional common ignores)
+__pycache__/
+*.pyc
+.env
+.venv/
+

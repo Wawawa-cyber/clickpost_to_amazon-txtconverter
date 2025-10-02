@@ -1,0 +1,13 @@
+﻿逶ｮ逧・ 縲後け繝ｪ繝・け繝昴せ繝医榊・蜉佞SV繧偵ｂ縺ｨ縺ｫ縲、mazon蜃ｺ闕ｷ騾夂衍繝輔か繝ｼ繝槭ャ繝茨ｼ・P932縲√ち繝門玄蛻・ｊ縲・56蛻怜崋螳夲ｼ峨∈螟画鋤縺吶ｋ險ｭ螳壹・螳溯｣・↓蜈ｨ髱｢菫ｮ豁｣縺吶ｋ縲・
+蟇ｾ雎｡縺ｨ隕∽ｻｶ:
+- 蜈･蜉・ 繧ｯ繝ｪ繝・け繝昴せ繝医・蜃ｺ蜉佞SV・井ｾ・ input/clickpostReport.csv・・  - 諠ｳ螳壹・繝・ム繝ｼ萓・ 縲隈oQ邂｡逅・分蜿ｷ縲阪後♀蝠上＞蜷医ｏ縺帷分蜿ｷ縲阪悟・闕ｷ譌･縲阪後♀螻翫￠蜈亥錐縲阪悟膚蜩∝錐ﾃ玲焚驥上・  - 繧ｨ繝ｳ繧ｳ繝ｼ繝・ぅ繝ｳ繧ｰ縺ｯ CP932/Shift_JIS 縺ｾ縺溘・ UTF-8・郁・蜍募愛螳夲ｼ・- 蜃ｺ蜉・ Amazon縲悟・闕ｷ騾夂衍繧｢繝・・繝ｭ繝ｼ繝峨榊ｽ｢蠑・  - 1陦檎岼: TemplateType, Version, 豕ｨ諢乗枚・・emplate_columns.json 縺ｮ header_rows 繧剃ｽｿ逕ｨ・・  - 2陦檎岼: 譌･譛ｬ隱槭・繝・ム繝ｼ・・emplate_columns.json 縺ｮ header_rows 繧剃ｽｿ逕ｨ・・  - 3陦檎岼: 闍ｱ隱槭き繝ｩ繝・・emplate_columns.json 縺ｮ columns 繧剃ｽｿ逕ｨ・・  - 莉･髯・ 繝・・繧ｿ陦後ょ粋險・256 蛻励↓繧ｿ繝悶〒繝代ョ繧｣繝ｳ繧ｰ縲∵隼陦後・ CRLF縲よ忰蟆ｾ縺ｫ遨ｺ陦・陦後・
+螟画峩譁ｹ驥・
+1) 繝槭ャ繝斐Φ繧ｰ繧偵け繝ｪ繝・け繝昴せ繝亥・縺ｸ邨ｱ荳
+   - order-id:       縲隈oQ邂｡逅・分蜿ｷ縲阪°繧画峡蠑ｧ蜀・ｼ・aren_inner・峨ｒ謚ｽ蜃ｺ・井ｾ・ 1323... (503-XXXX-YYYY) 竊・503-XXXX-YYYY・・   - order-item-id:  縲隈oQ邂｡逅・分蜿ｷ縲阪°繧画峡蠑ｧ蜑搾ｼ・aren_before・峨ｒ謚ｽ蜃ｺ・井ｾ・ 1323... (503-XXXX-YYYY) 竊・1323...・・   - quantity:       縲悟膚蜩∝錐ﾃ玲焚驥上阪°繧・ﾃ・縺ｮ蠕後・謨ｰ蟄暦ｼ・fter_multiply・峨ｒ謚ｽ蜃ｺ・井ｾ・ 蝠・刀蜷催・ 竊・1・・   - ship-date:      縲悟・闕ｷ譌･縲阪ｒ譌･莉伜､画鋤・・onfig.format.input_date_format 縺ｫ蠕薙≧縲よ里螳・ yyyy/MM/dd 竊・yyyy-MM-dd・・   - tracking-number:縲後♀蝠上＞蜷医ｏ縺帷分蜿ｷ縲・   - ship-method:    蝗ｺ螳壼､縲後け繝ｪ繝・け繝昴せ繝医・   - carrier-code:   蝗ｺ螳壼､縲繰apan Post縲・   - carrier-name:   蝗ｺ螳壼､縲梧律譛ｬ驛ｵ萓ｿ縲・   - 縺昴・莉悶・蜃ｺ闕ｷ蜈・い繝峨Ξ繧ｹ邉ｻ縺ｯ遨ｺ譁・ｭ怜崋螳・
+2) 險ｭ螳壹ヵ繧｡繧､繝ｫ縺ｮ謨ｴ蜷・   - config/mapping.json 繧剃ｸ願ｨ倥・繝・・縺ｫ譖ｴ譁ｰ・・TF-8・・   - config/config.json 縺ｮ input_date_format 縺ｯ縲軽yyy/MM/dd縲阪｛utput_date_format 縺ｯ縲軽yyy-MM-dd縲阪ｒ譌｢螳壹→縺吶ｋ
+   - config/template_columns.json 縺ｯ譌｢蟄假ｼ・mazon 繝・Φ繝励Ξ繝ｼ繝茨ｼ峨ｒ菴ｿ逕ｨ
+
+3) 蜍穂ｽ懃｢ｺ隱搾ｼ医Ο繝ｼ繧ｫ繝ｫ縺ｧ螳滓命・・   - input/ 縺ｫ 繧ｯ繝ｪ繝・け繝昴せ繝・SV 繧帝・鄂ｮ
+   - python tools/clickpost_to_amazon.py 繧貞ｮ溯｡・   - output/shipping_confirmation_YYYYMMDD_HHMMSS.txt・・P932, 繧ｿ繝門玄蛻・ｊ, 256蛻暦ｼ峨ｒ遒ｺ隱・
+蛯呵・
+- 縺薙ｌ縺ｾ縺ｧ縺ｮ縲後ｆ縺・ヱ繧ｱ繝・ヨ縲阪後ｆ縺・・繝ｪR縲榊燕謠舌・蛻怜錐・井ｾ・ 縲後♀闕ｷ迚ｩ莨晉･ｨ逡ｪ蜿ｷ縲阪↑縺ｩ・峨・菴ｿ逕ｨ縺帙★縲√け繝ｪ繝・け繝昴せ繝医・縲後♀蝠上＞蜷医ｏ縺帷分蜿ｷ縲阪↓邨ｱ荳縺吶ｋ縲・- 繝悶Λ繧ｦ繧ｶ迚茨ｼ・ndex.html・峨・ build-web-index.bat / tools/build_web_index.py 縺ｧ蜀咲函謌舌☆繧後・縲…onfig 荳九・蜀・ｮｹ縺悟渚譏縺輔ｌ繧九・

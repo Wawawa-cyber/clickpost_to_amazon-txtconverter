@@ -1,0 +1,18 @@
+{
+  "io": {
+    "encoding": "auto",
+    "columns_path": "config/template_columns.json"
+  },
+  "format": {
+    "input_date_format": "yyyy/MM/dd",
+    "output_date_format": "yyyy-MM-dd"
+  },
+  "output": {
+    "write_txt": true,
+    "write_csv": false,
+    "write_xlsx": false,
+    "txt_name": "shipping_confirmation.txt",
+    "csv_name": "shipping_confirmation.csv",
+    "xlsx_name": "AmazonShippingConfirmation_output.xlsx"
+  }
+}
