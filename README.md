@@ -181,3 +181,120 @@ encoding.js library is not loaded. Shift_JIS encoding will not work.
 笏懌楳笏 build-web-index.bat          # 繝悶Λ繧ｦ繧ｶ迚医ン繝ｫ繝臥畑
 笏披楳笏 README.md
 ```
+# クリックポスト → Amazon 出荷通知 変換ツール
+
+クリックポストの出荷通知CSVファイルを、Amazonの「出荷通知アップロード」用フォーマット（CP932、タブ区切り、256列固定）に変換するツールです。Excelテンプレートは使わず、テンプレート1行目の注意文と2行目の日本語ヘッダー、英語の列名をJSONに保持して出力へ反映します。
+
+## 📋 目次
+
+- 必要なファイル
+- Python版（推奨）
+- ブラウザ版（簡易）
+- 設定ファイル
+- トラブルシューティング
+- プロジェクト構成
+
+## 📁 必要なファイル
+
+- `input/*.csv`: クリックポストの出力ファイル（任意の名前、エンコードは自動検出に対応）
+- `config/template_columns.json`: Amazonテンプレートのヘッダーと列名（JSON）
+- `config/mapping.json`: 列のマッピング設定（UTF-8）
+- `config/config.json`: 入出力形式・出力ファイル名などの共通設定（UTF-8）
+
+## 🐍 Python版（推奨）
+
+### 事前準備
+- Python 3.6 以上（追加ライブラリ不要、標準ライブラリのみ）
+
+### 使い方
+1) 設定ファイルを用意
+   - `config/config.json`（共通設定）
+   - `config/mapping.json`（マッピング設定）
+2) `input/` フォルダにCSVを配置（エンコードは自動検出: UTF-8, Shift_JIS, CP932 等）
+3) 実行（どちらか）
+   - `python tools/clickpost_to_amazon.py`
+   - `run-clickpost-to-amazon.bat`
+4) 出力
+   - `output/shipping_confirmation_YYYYMMDD_HHMMSS.txt`（CP932、タブ区切り、256列固定）
+   - 必要に応じてCSV出力も可（`config/config.json` の `output.write_csv` を `true`）
+
+## 🌐 ブラウザ版（簡易）
+
+### ビルド
+1) HTML生成
+   - `python tools/build_web_index.py`
+   - または `build-web-index.bat`
+   - ルートに `index.html` が生成されます
+2) 設定の埋め込み
+   - `config/template_columns.json` → `TEMPLATE_COLUMNS`/`HEADER_ROWS`
+   - `config/mapping.json` → `MAPCFG`
+   - `config/config.json` → `CONFIG`
+
+### 使い方
+1) 生成された `index.html` をブラウザで開く
+2) CSVファイルをドロップまたは「ファイルを選択」で指定
+3) `shipping_confirmation_YYYYMMDD_HHMMSS.txt` が自動ダウンロード（CP932、タブ区切り、256列）
+
+### エンコード（重要）
+- 正確なCP932出力のため `vendor/encoding.min.js` が必要です（約27KB）
+- 不完全版（約9KB）だとエラーになります。公式から正しいファイルを取得してください
+
+## ⚙ 設定ファイル
+
+### config/config.json（例）
+```
+{
+  "io": { "encoding": "auto", "columns_path": "config/template_columns.json" },
+  "format": { "input_date_format": "yyyy/MM/dd", "output_date_format": "yyyy-MM-dd" },
+  "output": {
+    "write_txt": true, "write_csv": false, "write_xlsx": false,
+    "txt_name": "shipping_confirmation.txt", "csv_name": "shipping_confirmation.csv",
+    "xlsx_name": "AmazonShippingConfirmation_output.xlsx"
+  }
+}
+```
+
+### config/mapping.json（抜粋・クリックポスト向け）
+- 列例（想定）: 0=GoQ管理番号, 1=お問い合わせ番号, 2=出荷日, 4=商品名×数量
+- 主要設定:
+  - `order-id`: GoQ管理番号の括弧内（`paren_inner`）
+  - `order-item-id`: GoQ管理番号の括弧前（`paren_before`）
+  - `ship-date`: 出荷日（`parse_date: true`）
+  - `tracking-number`: お問い合わせ番号
+  - `quantity`: 商品名から×の後ろの数字を抽出（`after_multiply`）
+  - `ship-method`: クリックポスト（固定）
+  - `carrier-code`: Japan Post（固定）
+  - `carrier-name`: 日本郵便（固定）
+
+## 🔧 トラブルシューティング
+
+- 文字化けする/エラーになる
+  - 入力CSVのエンコードが不明な場合でも `encoding: auto` で自動判定します
+  - ブラウザ版は `encoding.min.js` が正しく配置されているか確認
+- マッピングエラー
+  - `template_columns.json` の `columns` と `mapping.json` のキー名が一致しているか確認
+- 日付が `yyyy/MM/dd` のまま
+  - `config/config.json` の `format.output_date_format` を `yyyy-MM-dd` に設定
+  - ブラウザ版は再ビルドして `index.html` を生成し直してください
+
+## 📂 プロジェクト構成
+
+```
+.
+├── config/
+│  ├── config.json              # 共通設定
+│  ├── mapping.json             # 列マッピング設定
+│  └── template_columns.json    # Amazonテンプレート情報
+├── input/
+│  └── *.csv                    # 入力ファイル（エンコード自動検出）
+├── output/
+│  └── shipping_confirmation_YYYYMMDD_HHMMSS.txt # 出力ファイル（CP932/タブ/256列）
+├── tools/
+│  ├── clickpost_to_amazon.py   # メイン変換スクリプト
+│  └── build_web_index.py       # ブラウザ版ビルドスクリプト
+├── vendor/
+│  └── encoding.min.js          # エンコードライブラリ（約27KB）
+├── run-clickpost-to-amazon.bat # Python版実行用
+├── build-web-index.bat         # ブラウザ版ビルド用
+└── index.html                  # 生成されるブラウザ版
+```
